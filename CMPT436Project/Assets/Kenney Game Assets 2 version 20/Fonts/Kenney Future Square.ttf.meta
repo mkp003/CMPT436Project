@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7fb05888fea4e0443af26bad65e764c4
+timeCreated: 1509307151
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kenney Future Square
+  fontNames:
+  - Kenney Future Square
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

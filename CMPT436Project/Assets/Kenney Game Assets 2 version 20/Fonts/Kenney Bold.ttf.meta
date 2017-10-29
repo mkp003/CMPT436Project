@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e1b7a85791d96d9459a0a4ef54c56631
+timeCreated: 1509307151
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kenney Bold
+  fontNames:
+  - Kenney Bold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
