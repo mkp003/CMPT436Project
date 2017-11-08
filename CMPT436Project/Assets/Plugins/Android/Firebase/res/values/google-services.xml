@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://cmpt436project-d8733.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">310366154673</string>
+  <string name="google_storage_bucket" translatable="false">cmpt436project-d8733.appspot.com</string>
+  <string name="project_id" translatable="false">cmpt436project-d8733</string>
+  <string name="google_api_key" translatable="false">AIzaSyCdBY--OMvl0aa7ch6CF0PvFNTcGzVb7lA</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCdBY--OMvl0aa7ch6CF0PvFNTcGzVb7lA</string>
+  <string name="google_app_id" translatable="false">1:310366154673:android:60bb95643898e37d</string>
+  <string name="default_web_client_id" translatable="false">310366154673-0901g6ute2j2h3lbrut4oikic8ulbd8d.apps.googleusercontent.com</string>
+</resources>
