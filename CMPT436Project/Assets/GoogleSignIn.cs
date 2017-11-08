@@ -8,7 +8,7 @@ public class GoogleSignIn : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+	/*
 	public void GoogleAuthentication()
     {
 
@@ -42,5 +42,5 @@ public class GoogleSignIn : MonoBehaviour {
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
         });
-    }
+    }*/
 }
