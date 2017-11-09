@@ -15,9 +15,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 145110379454569
   appLabels:
-  - App Name
+  - Bomber
   cookie: 1
   logging: 1
   status: 1
