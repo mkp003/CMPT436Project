@@ -608,6 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loggedInObject: {fileID: 1167680405}
   loggedOutObject: {fileID: 1675175627}
+  usernameText: {fileID: 966721737}
 --- !u!4 &1607786085
 Transform:
   m_ObjectHideFlags: 0

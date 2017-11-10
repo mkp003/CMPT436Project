@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Facebook.Unity;
 
 public class FBScript : MonoBehaviour {
 
+    // Parent Object of the logged in objects
     [SerializeField]
     private GameObject loggedInObject;
 
+    // Parent Object of the logged out objects
     [SerializeField]
     private GameObject loggedOutObject;
+
+    // Reference to username text
+    [SerializeField]
+    private GameObject usernameText;
 
 	// Use this for initialization
 	void Awake () {
@@ -89,11 +96,27 @@ public class FBScript : MonoBehaviour {
         {
             this.loggedInObject.SetActive(true);
             this.loggedOutObject.SetActive(false);
+            // Get users' Facebook name
+            FB.API("/me?fields=first_name", HttpMethod.GET, DisplayFacebookName);
         }
         else
         {
             this.loggedInObject.SetActive(false);
             this.loggedOutObject.SetActive(true);
+        }
+    }
+
+
+    private void DisplayFacebookName(IResult result)
+    {
+        if (result.Error == null)
+        {
+            Text name = usernameText.GetComponent<Text>();
+            name.text = "Welcome " + result.ResultDictionary["first_name"];
+        }
+        else
+        {
+            Debug.Log(result.Error);
         }
     }
 	
