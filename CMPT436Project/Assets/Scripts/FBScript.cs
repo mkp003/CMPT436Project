@@ -18,6 +18,10 @@ public class FBScript : MonoBehaviour {
     [SerializeField]
     private GameObject usernameText;
 
+    // Reference to profile picture
+    [SerializeField]
+    private GameObject profilePicture;
+
 	// Use this for initialization
 	void Awake () {
         FB.Init(SetInit, OnHideUnity);
@@ -98,6 +102,7 @@ public class FBScript : MonoBehaviour {
             this.loggedOutObject.SetActive(false);
             // Get users' Facebook name
             FB.API("/me?fields=first_name", HttpMethod.GET, DisplayFacebookName);
+            FB.API("/me/picture?type=square&height=128&width=128", HttpMethod.GET, DisplayFacebookPicture);
         }
         else
         {
@@ -107,6 +112,10 @@ public class FBScript : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// DisplayFacebookName() will display the name of the user's Facebook name to the screen.
+    /// </summary>
+    /// <param name="result"></param>
     private void DisplayFacebookName(IResult result)
     {
         if (result.Error == null)
@@ -119,5 +128,23 @@ public class FBScript : MonoBehaviour {
             Debug.Log(result.Error);
         }
     }
-	
+
+    
+    /// <summary>
+    /// DisplayFacebookPicture() will display image of the user's Facebook picture to the screen.
+    /// </summary>
+    /// <param name="result"></param>
+    private void DisplayFacebookPicture(IGraphResult result)
+    {
+        if (result.Error == null)
+        {
+            Image picture = profilePicture.GetComponent<Image>();
+            picture.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), new Vector2());
+        }
+        else
+        {
+            Debug.Log("Cant create picture! " + result.Error);
+        }
+    }
+
 }
