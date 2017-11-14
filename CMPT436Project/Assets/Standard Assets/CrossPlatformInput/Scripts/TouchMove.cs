@@ -58,8 +58,14 @@ public class TouchMove : MonoBehaviour
 			Move (RIGHT);
 		} else if (Input.GetKey (KeyCode.LeftArrow)) {
 			Move (LEFT);
-		} else {
-			//Move (STOP);
+		} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
+			Move (STOP);
+		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+			Move (STOP);
+		} else if (Input.GetKeyUp (KeyCode.RightArrow)) {
+			Move (STOP);
+		} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
+			Move (STOP);
 		}
 
 
