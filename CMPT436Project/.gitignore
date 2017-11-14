@@ -3,9 +3,6 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
-/Assets/AssetStoreTools*
-/Assets/Standard Assets.meta
-/Assets/Standard Assets/**
 
 # Visual Studio 2015 cache directory
 /.vs/
