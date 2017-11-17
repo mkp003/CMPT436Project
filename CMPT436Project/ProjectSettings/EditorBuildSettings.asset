@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/alex's scene.unity
     guid: fbed8aa48984a6542a9adef2e75edee9
+  - enabled: 1
+    path: Assets/Scenes/facebookTest.unity
+    guid: 02feab961c782b74f8f09973185648dc
