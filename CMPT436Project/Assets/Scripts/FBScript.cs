@@ -67,6 +67,12 @@ public class FBScript : MonoBehaviour {
         FB.LogInWithReadPermissions(listOfPermissions, AuthCallBack);
     }
 
+    public void FacebookLogout()
+    {
+        FB.LogOut();
+        FacebookMenus(FB.IsLoggedIn);
+    }
+
 
     void AuthCallBack(IResult result)
     {
