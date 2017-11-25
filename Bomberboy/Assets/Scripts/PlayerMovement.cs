@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField]
 	private Animator animator;
 
-	void FixedUpdate () {
+	void Update () {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
