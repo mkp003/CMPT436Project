@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class TouchMove : MonoBehaviour
 {
@@ -30,26 +31,8 @@ public class TouchMove : MonoBehaviour
 		r_body.velocity = v*speed;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-
-		// Get movement input
-		// Touch input
-		// TODO: change to control by virtual joystick
-		/*
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase != TouchPhase.Ended) {
-			// Get movement of the finger since last frame
-			Vector3 movePosition = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position) - transform.position;
-			movePosition.z = 0;
-			movePosition.Normalize ();
-
-			// Move object across XY plane
-			movePosition *= speed;
-			r_body.velocity =new Vector2(movePosition.x,movePosition.y);
-
-		//Arrow key movement
-		} else 
-		*/
 		if (Input.GetKey (KeyCode.UpArrow)) {
 			Move (UP);
 		} else if (Input.GetKey (KeyCode.DownArrow)) {
@@ -70,14 +53,17 @@ public class TouchMove : MonoBehaviour
 
 
 		// Drop Bomb Command
+
+		bool isBomb = CrossPlatformInputManager.GetButton ("DropBomb");
+		if (isBomb == true) {
+
+
+		}
+				
 		if (Input.GetKey (KeyCode.Space)) {
 			//Instantiate(
 		}
 
-
-	}
-
-	void FixedUpdate(){
 
 	}
 }

@@ -34,7 +34,7 @@ public class TouchMove : MonoBehaviour
 		r_body.velocity = v*speed;
 	}
 
-	void FixedUpdate()
+	void Update()
 	{
 
 		Vector2 currentVelocity = r_body.velocity;
@@ -42,13 +42,13 @@ public class TouchMove : MonoBehaviour
 
 		// Get movement input
 		// Touch input
-		if (Input.GetKey (KeyCode.UpArrow)) {
+		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			Move (UP);
-		} else if (Input.GetKey (KeyCode.DownArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			Move (DOWN);
-		} else if (Input.GetKey (KeyCode.RightArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			Move (RIGHT);
-		} else if (Input.GetKey (KeyCode.LeftArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			Move (LEFT);
 		} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
 			Move (STOP);
@@ -77,12 +77,5 @@ public class TouchMove : MonoBehaviour
 		} else {
 			animator.SetInteger ("DirectionY", 0);
 		}
-
-		// Drop Bomb Command
-		if (Input.GetKey (KeyCode.Space)) {
-			//Instantiate(
-		}
-
-
 	}
 }

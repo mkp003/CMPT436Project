@@ -8,14 +8,19 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         public string Name;
 
-        void OnEnable()
-        {
+		private GameObject go;
+		private BombScript bombScript;
 
+        void Start()
+        {
+			go = GameObject.Find ("Player");
+			bombScript = go.GetComponent<BombScript> ();
         }
 
         public void SetDownState()
         {
             CrossPlatformInputManager.SetButtonDown(Name);
+			bombScript.DropBomb ();
         }
 
 
