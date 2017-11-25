@@ -7,15 +7,9 @@ public class TouchMove : NetworkBehaviour
 {
     private const string VERTICAL_KEY = "Vertical";
     private const string HORIZONTAL_KEY = "Horizontal";
-
-    [SerializeField]
-    private float moveForce = 10;
+    
     [SerializeField]
     private float speed = 1;
-    [SerializeField]
-    private bool speedInstantStop = false;
-    [SerializeField]
-    private bool boolForceMove = true;
     [SerializeField]
     private Animator animator;
 
@@ -38,7 +32,6 @@ public class TouchMove : NetworkBehaviour
     void Update() {
         // Update the state of the controls 
         UpdateMovementState();
-        Debug.Log(Input.GetAxis("Vertical"));
         float x = this.controlState[HORIZONTAL_KEY];
         float y = this.controlState[VERTICAL_KEY];
         //Move(new Vector2(x, y)); // uncomment if using keyboard
@@ -63,61 +56,27 @@ public class TouchMove : NetworkBehaviour
         this.controlState[HORIZONTAL_KEY] += horizontalDirection;
     }
 
-    public void Move(Vector2 myVec) {
-        if (boolForceMove) {
-            ForceMoveVertical(myVec.y);
-            ForceMoveHorizontal(myVec.x);
+    public void Move(Vector2 moveVec) {
+        creatureBody.velocity = moveVec * speed;
+
+        if (moveVec.x < 0) {
+            animator.SetInteger("DirectionX", -1);
         }
-        else {
-            MoveVertical(myVec.y);
-            MoveHorizontal(myVec.x);
+        else if (moveVec.x > 0) {
+            animator.SetInteger("DirectionX", 1);
         }
-    }
-
-    //apply force to the character to make them move left or right
-    void ForceMoveHorizontal(float x) {
-        creatureBody.AddForce(creatureTransform.right * x * moveForce);
-    }
-
-    //apply force to the character to make the move up or down
-    void ForceMoveVertical(float y) {
-        creatureBody.AddForce(creatureTransform.up * y * moveForce);
-
-    }
-
-    //set speed of horizontal axis of the character to make them move left or right
-    void MoveHorizontal(float x) {
-        if (x != 0 || speedInstantStop) {
-            float cury = creatureBody.velocity.y;
-            float curx = x * speed;
-            creatureBody.velocity = new Vector2(curx, cury);
-            if (x < 0) {
-                animator.SetInteger("DirectionX", -1);
-            } else if (x > 0) {
-                animator.SetInteger("DirectionX", 1);
-            }
-        }
-        if (x == 0) {
+        else if (moveVec.x == 0) {
             animator.SetInteger("DirectionX", 0);
             creatureBody.velocity.Set(0, creatureBody.velocity.y);
         }
 
-    }
-
-    //set speed of vertical axis of the character to make the move up or down
-    void MoveVertical(float y) {
-        if (y != 0 || speedInstantStop) {
-            float cury = y * speed;
-            float curx = creatureBody.velocity.x;
-            creatureBody.velocity = new Vector2(curx, cury);
-            if (y < 0) {
-                animator.SetInteger("DirectionY", -1);
-            }
-            else if (y > 0) {
-                animator.SetInteger("DirectionY", 1);
-            }
+        if (moveVec.y < 0) {
+            animator.SetInteger("DirectionY", -1);
         }
-        if (y == 0) {
+        else if (moveVec.y > 0) {
+            animator.SetInteger("DirectionY", 1);
+        }
+        else if (moveVec.y == 0) {
             animator.SetInteger("DirectionY", 0);
             creatureBody.velocity.Set(creatureBody.velocity.x, 0);
         }
