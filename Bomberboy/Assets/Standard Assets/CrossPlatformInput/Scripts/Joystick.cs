@@ -26,15 +26,13 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
 		private TouchMove touchMoveScript;
-		private GameObject go;
 
 
         void Start()
         {
             m_StartPos = transform.position;
 			CreateVirtualAxes();
-			go = GameObject.Find ("Player");
-			touchMoveScript = go.GetComponent<TouchMove> ();
+			touchMoveScript = gameObject.GetComponentInParent<TouchMove> ();
         }
 
 		void UpdateVirtualAxes(Vector3 value)

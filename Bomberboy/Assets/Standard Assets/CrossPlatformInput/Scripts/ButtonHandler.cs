@@ -8,13 +8,11 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         public string Name;
 
-		private GameObject go;
 		private BombScript bombScript;
 
         void Start()
         {
-			go = GameObject.Find ("Player");
-			bombScript = go.GetComponent<BombScript> ();
+			bombScript = gameObject.GetComponentInParent<BombScript> ();
         }
 
         public void SetDownState()
