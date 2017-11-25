@@ -1,9 +1,6 @@
 fileFormatVersion: 2
-guid: ea083ae41ca59da46a74c0fad8bea353
-labels:
-- gpsr
-folderAsset: yes
-timeCreated: 1510169832
+guid: b1496bf381e0f8642a1068a316d0c729
+timeCreated: 1510179357
 licenseType: Free
 PluginImporter:
   serializedVersion: 2

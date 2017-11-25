@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Facebook.Unity;
+using Facebook.MiniJSON;
 
 public class FBScript : MonoBehaviour {
 
@@ -27,6 +28,8 @@ public class FBScript : MonoBehaviour {
         FB.Init(SetInit, OnHideUnity);
 	}
 
+    public GameObject scoreEntryPanel;
+    public GameObject scrollScoreList;
 
     void SetInit()
     {
@@ -153,4 +156,57 @@ public class FBScript : MonoBehaviour {
         }
     }
 
+    //////////////////////////////////////////////SCORES STUFF/////////////////////////////////////////////////////////
+
+    public void queryScores()
+    {
+        FB.API("/app/scores?fields=score,user.limit(30)", HttpMethod.GET, ScoresCallback);
+    }
+
+    private void ScoresCallback(IResult result)
+    {
+        IDictionary<string, object> data = result.ResultDictionary;
+        List<object> listOfScores = (List<object>) data["data"];
+
+        foreach (object objects in listOfScores)
+        {
+            var entry = (Dictionary<string, object>)objects;
+            var user = (Dictionary<string, object>)entry["user"];
+
+            Debug.Log(user["name"].ToString() + ", " + entry["score"].ToString() + "; ");
+
+            GameObject scorePanel;
+            scorePanel = Instantiate(scoreEntryPanel) as GameObject;
+            scorePanel.transform.SetParent(scrollScoreList.transform, false);
+
+            Transform friendName = scorePanel.transform.Find("FriendName");
+            Transform friendScore = scorePanel.transform.Find("FriendScore");
+            Transform friendImage = scorePanel.transform.Find("FriendImage");
+
+            Text FNtext = friendName.GetComponent<Text>();
+            Text FStext = friendScore.GetComponent<Text>();
+            Image FIImage = friendImage.GetComponent<Image>();
+
+            FNtext.text = user["name"].ToString();
+            FStext.text = entry["score"].ToString();
+            
+            FB.API(user["id"].ToString() + "/picture?width=120&height=120", HttpMethod.GET, delegate (IGraphResult profileImage)
+            {
+                if(profileImage.Error != null)
+                {
+                    Debug.Log(profileImage.RawResult);
+                }
+                else
+                {
+                    FIImage.sprite = Sprite.Create(profileImage.Texture, new Rect(0, 0, 120, 120), new Vector2());
+                }
+            });
+        }
+    }
+
+
+    public void setScores()
+    {
+
+    }
 }
