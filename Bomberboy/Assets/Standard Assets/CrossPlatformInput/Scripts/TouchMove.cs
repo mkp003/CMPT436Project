@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class TouchMove : MonoBehaviour
+public class TouchMove : NetworkBehaviour
 {
 	[SerializeField]
 	private float speed;
@@ -31,12 +32,14 @@ public class TouchMove : MonoBehaviour
 	}
 
 	public void Move(Vector2 v){
-		r_body.velocity = v*speed;
+		if (this.isLocalPlayer) {
+			r_body.velocity = v * speed;
+		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-
+		
 		Vector2 currentVelocity = r_body.velocity;
 
 
