@@ -597,12 +597,16 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: bdba18a7-79f7-4493-a3a4-75f08c364cdf
-  projectName: Bomber
-  organizationId: herambsawant
+  cloudProjectId: d7a5501b-cabd-4af2-ba35-76fb80936471
+  projectName: CMPT436Project
+  organizationId: mkp003
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

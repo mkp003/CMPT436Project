@@ -30,6 +30,8 @@ public class FBScript : MonoBehaviour {
 
     public GameObject scoreEntryPanel;
     public GameObject scrollScoreList;
+    public Text randomScoreText;
+    public Text currentHighScore;
 
     void SetInit()
     {
@@ -158,6 +160,11 @@ public class FBScript : MonoBehaviour {
 
     //////////////////////////////////////////////SCORES STUFF/////////////////////////////////////////////////////////
 
+    public void randomScore()
+    {
+        int randomNumber = Random.Range(0, 1000);
+        randomScoreText.text = randomNumber.ToString();
+    }
     public void queryScores()
     {
         FB.API("/app/scores?fields=score,user.limit(30)", HttpMethod.GET, ScoresCallback);
@@ -172,8 +179,6 @@ public class FBScript : MonoBehaviour {
         {
             var entry = (Dictionary<string, object>)objects;
             var user = (Dictionary<string, object>)entry["user"];
-
-            Debug.Log(user["name"].ToString() + ", " + entry["score"].ToString() + "; ");
 
             GameObject scorePanel;
             scorePanel = Instantiate(scoreEntryPanel) as GameObject;
@@ -204,9 +209,41 @@ public class FBScript : MonoBehaviour {
         }
     }
 
-
     public void setScores()
     {
+        FB.API("/me/scores", HttpMethod.GET, userScoresCallback);
 
+    }
+    public void userScoresCallback(IResult result)
+    {
+        string newHighScore = "0";
+        //Debug.Log("User score is: " + result.RawResult);
+        IDictionary<string, object> data = result.ResultDictionary;
+        List<object> listOfScores = (List<object>)data["data"];
+        foreach (object objects in listOfScores)
+        {
+            var entry = (Dictionary<string, object>)objects;
+            newHighScore = entry["score"].ToString();
+        }
+        setNewHighScore(newHighScore);
+    }
+    public void setNewHighScore(string score)
+    {
+
+        if (int.Parse(randomScoreText.text) > int.Parse(score))
+        {
+            Debug.Log("entered if");
+            var query = new Dictionary<string, string>();
+            query["score"] = randomScoreText.text;
+            FB.API("/me/scores", HttpMethod.POST, delegate(IGraphResult result) {
+                Debug.Log("Score submit result: " + result.RawResult);
+            }, query);
+            currentHighScore.text = "High Score" + randomScoreText.text;
+        }
+        else
+        {
+            Debug.Log("entered else");
+            currentHighScore.text = "High Score" + score;
+        }
     }
 }
