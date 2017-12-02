@@ -9,7 +9,7 @@ public class PlayerStat : MonoBehaviour {
 	public float invuln_time = 3f;
 	private bool invuln = false;
 
-    private KeyValuePair<string, string> playerID; // key: player id/facebook id, value: playername
+    private KeyValuePair<string, string> playerID; // key: player id/twitter id, value: playername
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +32,7 @@ public class PlayerStat : MonoBehaviour {
 	void TakeDamage(){
 		health--;
 		if (health <= 0) {
-            GameObject.FindGameObjectWithTag("StatsManager").GetComponent<Stats>().RegisterPlayerDeath(playerID);
+            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Stats>().RegisterPlayerDeath(playerID);
 			Destroy (gameObject);
 			return;
 		}
