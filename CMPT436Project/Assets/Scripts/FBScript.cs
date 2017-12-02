@@ -264,13 +264,7 @@ public class FBScript : MonoBehaviour
 
     public void shareWithFriends()
     {
-
-
-        FB.ShareLink(
-            new System.Uri("https://google.ca"),
-            "Checkout my Friend Smash greatness!",
-            "I just smashed " +currentScore + " friends! Can you beat it ?",
-            null,
+        FB.ShareLink(new System.Uri("https://facebook.com"), "Checkout my Friend Smash greatness!", "I just smashed " + currentScore + " friends! Can you beat it ?", null,
             ShareCallback);
     }
 }
