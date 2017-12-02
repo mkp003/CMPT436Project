@@ -7,6 +7,7 @@ using Facebook.MiniJSON;
 
 public class FBScript : MonoBehaviour
 {
+    private string currentScore = "0";
 
     // Parent Object of the logged in objects
     [SerializeField]
@@ -246,6 +247,24 @@ public class FBScript : MonoBehaviour
         {
             Debug.Log("entered else");
             currentHighScore.text = "High Score" + score;
+            currentScore = score;
         }
+    }
+
+    private static void ShareCallback(IShareResult result)
+    {
+        Debug.Log("ShareCallback");
+        if (result.Error != null)
+        {
+            Debug.LogError(result.Error);
+            return;
+        }
+        Debug.Log(result.RawResult);
+    }
+
+    public void shareWithFriends()
+    {
+        FB.ShareLink(new System.Uri("https://facebook.com"), "Checkout my Friend Smash greatness!", "I just smashed " + currentScore + " friends! Can you beat it ?", null,
+            ShareCallback);
     }
 }
