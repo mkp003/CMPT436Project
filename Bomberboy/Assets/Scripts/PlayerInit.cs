@@ -9,6 +9,7 @@ public class PlayerInit : NetworkBehaviour {
     // do da stuff
 	void Start () {
 		if (this.isLocalPlayer) {
+            GetComponent<SpriteRenderer>().color = Color.blue;
             this.gameObject.GetComponent<TouchMove>().enabled = true;
             this.gameObject.GetComponent<BombScript>().enabled = true;
             this.gameObject.transform.GetChild(0).gameObject.SetActive(true);

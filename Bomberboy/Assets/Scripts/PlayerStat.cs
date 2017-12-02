@@ -7,7 +7,7 @@ public class PlayerStat : MonoBehaviour {
 	public int health = 4;
 
 	public float invuln_time = 3f;
-	private bool invuln = false;
+	public bool invuln = false;
 
     private KeyValuePair<string, string> playerID; // key: player id/twitter id, value: playername
 
@@ -21,17 +21,10 @@ public class PlayerStat : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter2D(Collider2D coll) {
-		if (coll.tag.Equals("Explosion") && !invuln) {
-            //coll.gameObject.SendMessage("damage", coll.gameObject);
-            invuln = true;
-            this.TakeDamage();
-		}
-	}
-
-	void TakeDamage(){
+	public void TakeDamage(){
 		health--;
-		if (health <= 0) {
+        invuln = true;
+        if (health <= 0) {
             GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Stats>().RegisterPlayerDeath(playerID);
 			Destroy (gameObject);
 			return;
