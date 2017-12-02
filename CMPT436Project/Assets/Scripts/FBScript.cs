@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Facebook.Unity;
+using Facebook.MiniJSON;
 
-public class FBScript : MonoBehaviour {
+public class FBScript : MonoBehaviour
+{
 
     // Parent Object of the logged in objects
     [SerializeField]
@@ -22,11 +24,16 @@ public class FBScript : MonoBehaviour {
     [SerializeField]
     private GameObject profilePicture;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         FB.Init(SetInit, OnHideUnity);
-	}
+    }
 
+    public GameObject scoreEntryPanel;
+    public GameObject scrollScoreList;
+    public Text randomScoreText;
+    public Text currentHighScore;
 
     void SetInit()
     {
@@ -76,7 +83,7 @@ public class FBScript : MonoBehaviour {
 
     void AuthCallBack(IResult result)
     {
-        if(result.Error != null)
+        if (result.Error != null)
         {
             Debug.Log(result.Error);
         }
@@ -135,7 +142,7 @@ public class FBScript : MonoBehaviour {
         }
     }
 
-    
+
     /// <summary>
     /// DisplayFacebookPicture() will display image of the user's Facebook picture to the screen.
     /// </summary>
@@ -153,4 +160,92 @@ public class FBScript : MonoBehaviour {
         }
     }
 
+    //////////////////////////////////////////////SCORES STUFF/////////////////////////////////////////////////////////
+
+    public void randomScore()
+    {
+        int randomNumber = Random.Range(0, 1000);
+        randomScoreText.text = randomNumber.ToString();
+    }
+    public void queryScores()
+    {
+        FB.API("/app/scores?fields=score,user.limit(30)", HttpMethod.GET, ScoresCallback);
+    }
+
+    private void ScoresCallback(IResult result)
+    {
+        IDictionary<string, object> data = result.ResultDictionary;
+        List<object> listOfScores = (List<object>)data["data"];
+
+        foreach (object objects in listOfScores)
+        {
+            var entry = (Dictionary<string, object>)objects;
+            var user = (Dictionary<string, object>)entry["user"];
+
+            GameObject scorePanel;
+            scorePanel = Instantiate(scoreEntryPanel) as GameObject;
+            scorePanel.transform.SetParent(scrollScoreList.transform, false);
+
+            Transform friendName = scorePanel.transform.Find("FriendName");
+            Transform friendScore = scorePanel.transform.Find("FriendScore");
+            Transform friendImage = scorePanel.transform.Find("FriendImage");
+
+            Text FNtext = friendName.GetComponent<Text>();
+            Text FStext = friendScore.GetComponent<Text>();
+            Image FIImage = friendImage.GetComponent<Image>();
+
+            FNtext.text = user["name"].ToString();
+            FStext.text = entry["score"].ToString();
+
+            FB.API(user["id"].ToString() + "/picture?width=120&height=120", HttpMethod.GET, delegate (IGraphResult profileImage)
+            {
+                if (profileImage.Error != null)
+                {
+                    Debug.Log(profileImage.RawResult);
+                }
+                else
+                {
+                    FIImage.sprite = Sprite.Create(profileImage.Texture, new Rect(0, 0, 120, 120), new Vector2());
+                }
+            });
+        }
+    }
+
+    public void setScores()
+    {
+        FB.API("/me/scores", HttpMethod.GET, userScoresCallback);
+
+    }
+    public void userScoresCallback(IResult result)
+    {
+        string newHighScore = "0";
+        //Debug.Log("User score is: " + result.RawResult);
+        IDictionary<string, object> data = result.ResultDictionary;
+        List<object> listOfScores = (List<object>)data["data"];
+        foreach (object objects in listOfScores)
+        {
+            var entry = (Dictionary<string, object>)objects;
+            newHighScore = entry["score"].ToString();
+        }
+        setNewHighScore(newHighScore);
+    }
+    public void setNewHighScore(string score)
+    {
+
+        if (int.Parse(randomScoreText.text) > int.Parse(score))
+        {
+            Debug.Log("entered if");
+            var query = new Dictionary<string, string>();
+            query["score"] = randomScoreText.text;
+            FB.API("/me/scores", HttpMethod.POST, delegate (IGraphResult result) {
+                Debug.Log("Score submit result: " + result.RawResult);
+            }, query);
+            currentHighScore.text = "High Score" + randomScoreText.text;
+        }
+        else
+        {
+            Debug.Log("entered else");
+            currentHighScore.text = "High Score" + score;
+        }
+    }
 }
