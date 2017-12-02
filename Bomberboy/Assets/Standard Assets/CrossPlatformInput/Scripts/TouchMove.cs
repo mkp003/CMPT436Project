@@ -9,7 +9,7 @@ public class TouchMove : NetworkBehaviour
     private const string HORIZONTAL_KEY = "Horizontal";
     
     [SerializeField]
-    private float speed = 1;
+    public float speed = 1;
     [SerializeField]
     private Animator animator;
 
