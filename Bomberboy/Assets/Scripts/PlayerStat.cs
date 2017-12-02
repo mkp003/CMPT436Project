@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
-public class PlayerStat : MonoBehaviour {
+public class PlayerStat : NetworkBehaviour {
     
 	public int health = 4;
 
 	public float invuln_time = 3f;
 	public bool invuln = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -24,8 +27,14 @@ public class PlayerStat : MonoBehaviour {
         invuln = true;
         if (health <= 0) {
             // Todo: give player option to share game result
-			Destroy (gameObject);
-			return;
+            if (isLocalPlayer)
+            {
+                int numPlayers = GameObject.FindGameObjectsWithTag("Character").Length;
+                PlayerPrefs.SetInt("Score", numPlayers);
+                SceneManager.LoadScene("facebookTest");
+            }
+            Destroy(gameObject);
+            return;
 		}
 		//trigger damage animation
 		//TODO: trigger damage
