@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour {
-
-	[SerializeField]
+    
 	public int health = 4;
 
 	public float invuln_time = 3f;
-	public bool invuln = false;
+	private bool invuln = false;
+
+    private KeyValuePair<string, string> playerID; // key: player id/twitter id, value: playername
+
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -19,12 +21,18 @@ public class PlayerStat : MonoBehaviour {
 		
 	}
 
-	public void TakeDamage(){
-		invuln = true;
+	void OnTriggerEnter2D(Collider2D coll) {
+		if (coll.tag.Equals("Explosion") && !invuln) {
+            //coll.gameObject.SendMessage("damage", coll.gameObject);
+            invuln = true;
+            this.TakeDamage();
+		}
+	}
+
+	void TakeDamage(){
 		health--;
 		if (health <= 0) {
-			//TODO: send information about death to server
-			//TODO: ???
+            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Stats>().RegisterPlayerDeath(playerID);
 			Destroy (gameObject);
 			return;
 		}
