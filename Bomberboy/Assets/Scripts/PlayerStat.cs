@@ -8,7 +8,7 @@ public class PlayerStat : MonoBehaviour {
 	public int health = 4;
 
 	public float invuln_time = 3f;
-	private bool invuln = false;
+	public bool invuln = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,14 +19,7 @@ public class PlayerStat : MonoBehaviour {
 		
 	}
 
-	void OnEnterCollision2D(Collider2D coll) {
-		if (coll.tag.Equals("Explosion") && !invuln) {
-			//coll.gameObject.SendMessage("damage", coll.gameObject);
-			this.TakeDamage();
-		}
-	}
-
-	void TakeDamage(){
+	public void TakeDamage(){
 		invuln = true;
 		health--;
 		if (health <= 0) {
