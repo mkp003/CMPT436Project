@@ -9,8 +9,6 @@ public class PlayerStat : MonoBehaviour {
 	public float invuln_time = 3f;
 	public bool invuln = false;
 
-    private KeyValuePair<string, string> playerID; // key: player id/twitter id, value: playername
-
 	// Use this for initialization
 	void Start () {
 
@@ -25,7 +23,7 @@ public class PlayerStat : MonoBehaviour {
 		health--;
         invuln = true;
         if (health <= 0) {
-            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Stats>().RegisterPlayerDeath(playerID);
+            // Todo: give player option to share game result
 			Destroy (gameObject);
 			return;
 		}
