@@ -20,7 +20,7 @@ public class PlayerStat : MonoBehaviour {
 	}
 
 	void OnEnterCollision2D(Collider2D coll) {
-		if (coll.tag.Equals("Damage") && !invuln) {
+		if (coll.tag.Equals("Explosion") && !invuln) {
 			//coll.gameObject.SendMessage("damage", coll.gameObject);
 			this.TakeDamage();
 		}
