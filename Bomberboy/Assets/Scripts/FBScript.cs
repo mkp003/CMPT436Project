@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using Facebook.Unity;
 using Facebook.MiniJSON;
@@ -26,10 +27,14 @@ public class FBScript : MonoBehaviour
     [SerializeField]
     private GameObject profilePicture;
 
+    private GameObject netMan;
+
     // Use this for initialization
     void Awake()
     {
         FB.Init(SetInit, OnHideUnity);
+        this.netMan = GameObject.Find("NetWorkManager");
+        this.netMan.SetActive(false);
     }
 
     public GameObject scoreEntryPanel;
@@ -137,7 +142,7 @@ public class FBScript : MonoBehaviour
         if (result.Error == null)
         {
             Text name = usernameText.GetComponent<Text>();
-            name.text = "Welcome " + result.ResultDictionary["first_name"];
+            name.text = result.ResultDictionary["first_name"] + "";
         }
         else
         {
@@ -245,6 +250,7 @@ public class FBScript : MonoBehaviour
         FB.API("/me/scores", HttpMethod.POST, delegate (IGraphResult result) {
             Debug.Log("Score submit result: " + result.RawResult);
         }, query);
+        currentHighScore.text = score;
     }
 
     private static void ShareCallback(IShareResult result)
@@ -266,6 +272,7 @@ public class FBScript : MonoBehaviour
 
     public void GoToLobby()
     {
+        this.netMan.SetActive(true);
         SceneManager.LoadScene("Lobby");
     }
 }
