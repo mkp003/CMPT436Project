@@ -12,8 +12,8 @@ public class BombScript : NetworkBehaviour {
     [SerializeField]
     private float timeLastBombDropped;
 
-
-    public void DropBomb(){
+    [Command]
+    public void CmdDropBomb(){
         if(timeLastBombDropped + bombDelay < Time.realtimeSinceStartup) {
             timeLastBombDropped = Time.realtimeSinceStartup;
             Vector3 pos = this.gameObject.transform.position;
@@ -31,7 +31,7 @@ public class BombScript : NetworkBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Input.GetKeyDown (KeyCode.Space) && this.isLocalPlayer) {
-			DropBomb ();
+			CmdDropBomb ();
 		}
 	}
 }

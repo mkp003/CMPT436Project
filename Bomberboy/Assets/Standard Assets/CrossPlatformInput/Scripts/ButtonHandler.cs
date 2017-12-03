@@ -18,7 +18,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         public void SetDownState()
         {
             CrossPlatformInputManager.SetButtonDown(Name);
-			bombScript.DropBomb ();
+			bombScript.CmdDropBomb ();
         }
 
 
