@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Facebook.Unity;
 using Facebook.MiniJSON;
+using UnityEngine.SceneManagement;
 
 public class FBScript : MonoBehaviour
 {
@@ -267,5 +268,10 @@ public class FBScript : MonoBehaviour
     {
         FB.ShareLink(new System.Uri("https://facebook.com"), "Checkout my Friend Smash greatness!", "I just smashed " + currentScore + " friends! Can you beat it ?", null,
             ShareCallback);
+    }
+
+    public void GoToLobby()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

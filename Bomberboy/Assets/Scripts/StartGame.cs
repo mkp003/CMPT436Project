@@ -7,7 +7,7 @@ public class StartGame : MonoBehaviour {
 
 	void Update () {
 		if (Input.anyKey) {
-			SceneManager.LoadScene ("Lobby");
+			SceneManager.LoadScene ("facebookTest");
 		}
 	}
 }
