@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,12 +12,17 @@ public class PlayerStat : NetworkBehaviour {
 	public float invuln_time = 3f;
 	public bool invuln = false;
 
+    public bool isDead;
+
 
 	// Use this for initialization
 	void Start () {
-
+        isDead = false;
 	}
 	
+    void Update () {
+    }
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		
@@ -27,13 +33,13 @@ public class PlayerStat : NetworkBehaviour {
         invuln = true;
         if (health <= 0) {
             // Todo: give player option to share game result
+            isDead = true;
             if (isLocalPlayer)
             {
                 int numPlayers = GameObject.FindGameObjectsWithTag("Character").Length;
                 PlayerPrefs.SetInt("Score", numPlayers);
-                SceneManager.LoadScene("facebookTest");
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
 		}
 		//trigger damage animation

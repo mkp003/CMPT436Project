@@ -30,7 +30,7 @@ public class FBScript : MonoBehaviour
     private GameObject netMan;
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
         FB.Init(SetInit, OnHideUnity);
         this.netMan = GameObject.Find("NetWorkManager");
@@ -123,6 +123,7 @@ public class FBScript : MonoBehaviour
             FB.API("/me?fields=first_name", HttpMethod.GET, DisplayFacebookName);
             FB.API("/me/picture?type=square&height=128&width=128", HttpMethod.GET, DisplayFacebookPicture);
             currentScore = PlayerPrefs.GetInt("Score").ToString();
+            Debug.Log(currentScore);
             setNewHighScore(currentScore);
         }
         else
