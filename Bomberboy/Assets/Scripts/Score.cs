@@ -10,7 +10,7 @@ public class Score : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        PlayerPrefs.SetInt("Score", default(int));
 	}
 	
 	// Update is called once per frame

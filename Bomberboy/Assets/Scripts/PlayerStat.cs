@@ -31,6 +31,9 @@ public class PlayerStat : NetworkBehaviour {
 	public void TakeDamage(){
 		health--;
         invuln = true;
+        if (isLocalPlayer) {
+            this.gameObject.GetComponent<PlayerLife>().UpdateLife();
+        }
         if (health <= 0) {
             // Todo: give player option to share game result
             isDead = true;

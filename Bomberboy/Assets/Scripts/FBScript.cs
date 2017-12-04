@@ -34,7 +34,7 @@ public class FBScript : MonoBehaviour
     {
         FB.Init(SetInit, OnHideUnity);
         this.netMan = GameObject.Find("NetWorkManager");
-        this.netMan.SetActive(false);
+        this.netMan.GetComponent<NetworkManagerHUD>().showGUI = false;
     }
 
     public GameObject scoreEntryPanel;
@@ -273,7 +273,7 @@ public class FBScript : MonoBehaviour
 
     public void GoToLobby()
     {
-        this.netMan.SetActive(true);
+        this.netMan.GetComponent<NetworkManagerHUD>().showGUI = true;
         SceneManager.LoadScene("Lobby");
     }
 }
