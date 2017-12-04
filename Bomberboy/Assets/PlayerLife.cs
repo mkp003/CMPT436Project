@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerLife : MonoBehaviour {
+public class PlayerLife : NetworkBehaviour {
 
     [SerializeField]
     private GameObject playerLifeImage;
@@ -10,12 +11,14 @@ public class PlayerLife : MonoBehaviour {
     private List<GameObject> lifeImages;
 
     void Start() {
-        GameObject playerLivesGrid = GameObject.Find("PlayerLivesGrid");
+        if (isLocalPlayer) {
+            GameObject playerLivesGrid = GameObject.Find("PlayerLivesGrid");
 
-        this.lifeImages = new List<GameObject>();
-        for (int lifeIndex = 0; lifeIndex < this.gameObject.GetComponent<PlayerStat>().health; ++lifeIndex) {
-            GameObject lifeImage = Instantiate(playerLifeImage, playerLivesGrid.transform) as GameObject;
-            this.lifeImages.Add(lifeImage);
+            this.lifeImages = new List<GameObject>();
+            for (int lifeIndex = 0; lifeIndex < this.gameObject.GetComponent<PlayerStat>().health; ++lifeIndex) {
+                GameObject lifeImage = Instantiate(playerLifeImage, playerLivesGrid.transform) as GameObject;
+                this.lifeImages.Add(lifeImage);
+            }
         }
     }
 
